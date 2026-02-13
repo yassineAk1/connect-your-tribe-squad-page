@@ -50,8 +50,20 @@ app.use(express.urlencoded({extended: true}))
 // Om Views weer te geven, heb je Routes nodig
 // Maak een GET route voor de index
 app.get('/', async function (request, response) {
+console.log(request.query)
+  
+  const squad = request.query.squad
 
-  // Haal alle personen uit de WHOIS API op, van dit jaar, gesorteerd op naam
+  const hobby = request.query.fav_hobby
+
+  const sortId = request.query.sort
+  
+
+
+
+// Haal alle personen uit de WHOIS API op, van dit jaar, gesorteerd op naam
+  
+  
   const params = {
     // Sorteer op naam
     'sort': 'name',
@@ -66,6 +78,22 @@ app.get('/', async function (request, response) {
     // 'filter[squads][squad_id][name]': '1J',
     'filter[squads][squad_id][cohort]': '2526'
   }
+
+  if (squad) {
+    params['filter[squads][squad_id][name]'] = squad
+  }
+
+  if (hobby) {
+  params['filter[fav_hobby]'] = hobby;
+}
+
+if (sortId == '-id') {
+  params['sort'] = '-id' 
+}
+if (sortId == 'id') {
+  params['sort'] = 'id' 
+}
+
   const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(params))
 
   // En haal daarvan de JSON op
@@ -86,7 +114,6 @@ app.post('/', async function (request, response) {
   // Er is nog geen afhandeling van POST, redirect naar GET op /
   response.redirect(303, '/')
 })
-
 
 // Maak een GET route voor een detailpagina met een route parameter, id
 // Zie de documentatie van Express voor meer info: https://expressjs.com/en/guide/routing.html#route-parameters
