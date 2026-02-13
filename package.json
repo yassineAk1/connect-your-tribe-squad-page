@@ -8,7 +8,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js",
+    "dev": "browser-sync start --proxy localhost:8000 --files '**/*.liquid, **/*.css, **/*.js'"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,10 @@
   "homepage": "https://github.com/fdnd-task/connect-your-tribe-squad-page#readme",
   "dependencies": {
     "express": "latest",
-    "liquidjs": "latest"
+    "liquidjs": "latest",
+    "nodemon": "^3.1.11"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4"
   }
 }

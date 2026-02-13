@@ -1,9 +1,33 @@
 {% render 'partials/head.liquid', title: 'Squad page' %}
+<a class="title" href="/">Wanted Wall</a>
 
-<h2>Students</h2>
+<details class="woodButton">
+  <summary>Sorteer/Filter</summary>
+  <ul>
+    <li> <a href="/?squad=1I">Squad I</a></li>
+    <li> <a href="/?squad=1J">Squad J</a></li>
+    <li> <a href="/?sort=-id">$ hoog - laag</a></li>
+    <li> <a href="/?sort=id">$ laag - hoog</a></li>
+        <li> <a href="/?fav_hobby=Gamen">Hobby gamen</a></li>
+
+  </ul>
+</details>
+
+<a href="#" class="boat"><img src="boat.png" loading="lazy" alt=""></a>
 <ul>
   {% for person in persons %}
-    <li><a href="/student/{{ person.id }}">{{ person.name }}</a></li>
+    <li>
+      <a class="wantedPoster" loading="lazy" href="/student/{{ person.id }}" target="_blank">
+        <img class="poster" src="wantedposter.png" alt="">
+        <img
+          class="mugshot"
+          src="{% if person.mugshot %}https://fdnd.directus.app/assets/{{ person.mugshot }}{% else %}placeholder.png{% endif %}"
+          alt="{{ person.name }}"
+        >
+        <p class="name">{{ person.name }}</p>
+        <p class="bounty">{{ person.id }}.000.000</p>
+      </a>
+    </li>
   {% endfor %}
 </ul>
 
